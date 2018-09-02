@@ -17,7 +17,7 @@ Server: nginx/1.15.3
 ### Version info
 
 ```bash
-$ docker run --rm shamelesscookie/nginx:latest nginx -V
+$ docker run --rm shamelesscookie/nginx:1.15.3-openssl-1.1.1-pre9 nginx -V
 nginx version: nginx/1.15.3
 built by gcc 7.3.0 (Ubuntu 7.3.0-16ubuntu3)
 built with OpenSSL 1.1.1-pre9 (beta) 21 Aug 2018
