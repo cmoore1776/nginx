@@ -17,7 +17,7 @@ Server: nginx/1.15.6
 ### Version info
 
 ```bash
-$ docker run --rm -it shamelesscookie/nginx:1.15.3-openssl-1.1.1 nginx -V
+$ docker run --rm -it shamelesscookie/nginx:1.15.6-openssl-1.1.1 nginx -V
 nginx version: nginx/1.15.6
 built by gcc 7.3.0 (Ubuntu 7.3.0-27ubuntu1~18.04) 
 built with OpenSSL 1.1.1  11 Sep 2018
