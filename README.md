@@ -1,4 +1,4 @@
-# openssl
+# nginx
 
 Dockerfile for nginx 1.15, based on Ubuntu 18.04 and built from source with openssl 1.1.1 (supports TLSv1.3).
 
