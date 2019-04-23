@@ -1,6 +1,6 @@
 # nginx
 
-Dockerfile for nginx 1.15, based on Ubuntu 18.04 and built from source with openssl 1.1.1 (supports TLSv1.3).
+Dockerfile for nginx, based on Ubuntu 18.04 and built from source with openssl 1.1.1 (supports TLSv1.3).
 
 ## Usage
 
@@ -11,14 +11,14 @@ $ docker run --rm -p 80:80 -d shamelesscookie/nginx:latest
 
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.15.12
+Server: nginx/1.16.0
 ```
 
 ### Version info
 
 ```bash
-$ docker run --rm -it shamelesscookie/nginx:1.15.12-openssl-1.1.1b nginx -V
-nginx version: nginx/1.15.12
+$ docker run --rm -it shamelesscookie/nginx:1.16.0-openssl-1.1.1b nginx -V
+nginx version: nginx/1.16.0
 built by gcc 7.3.0 (Ubuntu 7.3.0-27ubuntu1~18.04) 
 built with OpenSSL 1.1.1b  26 Feb 2019
 TLS SNI support enabled
