@@ -1,17 +1,17 @@
 FROM ubuntu:18.04
 
 ENV \
-  VERSION=1.17.1 \
-  SHA256=6f1825b4514e601579986035783769c456b888d3facbab78881ed9b58467e73e \
-  PCRE_VERSION=8.42 \
-  PCRE_SHA256=69acbc2fbdefb955d42a4c606dfde800c2885711d2979e356c0636efde9ec3b5 \
+  VERSION=1.17.2 \
+  SHA256=5e333687464e1d6dfb86fc22d653b99a6798dda40093b33186eeeec5a97e69ec \
+  PCRE_VERSION=8.43 \
+  PCRE_SHA256=0b8e7465dc5e98c757cc3650a20a7843ee4c3edf50aaf60bb33fd879690d2c73 \
   ZLIB_VERSION=1.2.11 \
   ZLIB_SHA256=c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1 \
   OPENSSL_VERSION=1.1.1c \
   OPENSSL_SHA256=f6fb3079ad15076154eda9413fed42877d668e7069d9b87396d0804fdb3f4c90
 
 RUN \
-  apt update && apt install -y \
+  apt update && apt upgrade -y && apt install -y \
     build-essential \
     curl \
     libxml2-dev \
