@@ -13,14 +13,14 @@ docker run --rm -p 80:80 -d shamelesscookie/nginx:latest
 ```bash
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.17.8
+Server: nginx/1.17.9
 ```
 
 ### Version info
 
 ```bash
-$ docker run --rm -it shamelesscookie/nginx:1.17.8-openssl-1.1.1d nginx -V
-nginx version: nginx/1.17.8
+$ docker run --rm -it shamelesscookie/nginx:1.17.9-openssl-1.1.1d nginx -V
+nginx version: nginx/1.17.9
 built by gcc 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) 
 built with OpenSSL 1.1.1d  10 Sep 2019
 TLS SNI support enabled
