@@ -7,7 +7,7 @@ tagStart=$(expr index "$IMAGE_NAME" :)
 repoName=${IMAGE_NAME:0:tagStart-1}
 
 # Tag and push image for each additional tag
-for tag in {1.19-openssl-1.1.1,1.19.10-openssl-1.1.1k}; do
+for tag in {1.21-openssl-1.1.1,1.21.0-openssl-1.1.1k}; do
     docker tag $IMAGE_NAME ${repoName}:${tag}
     docker push ${repoName}:${tag}
 done
