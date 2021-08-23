@@ -1,6 +1,6 @@
-FROM ubuntu:21.04
+FROM alpine:3.14
 
-ENV \
+ARG \
   VERSION=1.21.1 \
   SHA256=68ba0311342115163a0354cad34f90c05a7e8bf689dc498abf07899eda155560 \
   PCRE_VERSION=8.45 \
@@ -8,18 +8,25 @@ ENV \
   ZLIB_VERSION=1.2.11 \
   ZLIB_SHA256=c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1 \
   OPENSSL_VERSION=1.1.1k \
-  OPENSSL_SHA256=892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5 \
-  DEBIAN_FRONTEND=noninteractive
+  OPENSSL_SHA256=892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5
 
 RUN \
-  apt update && apt upgrade -y && apt install -y \
-    build-essential \
+  apk update && apk add \
+    alpine-sdk \
     curl \
+    gd-dev \
+    geoip-dev \
+    gzip \
+    libgd \
     libxml2-dev \
-    libxslt1-dev \
-    libgd-dev \
-    libgeoip-dev \
-    libperl-dev && \
+    libxslt-dev \
+    linux-headers \
+    perl \
+    perl-dev \
+    zlib-dev \
+  && \
+  mkdir -p /usr/local/src && \
+  mkdir -p /usr/share/man/man8 && \
   cd /usr/local/src/ && \
   curl https://nginx.org/download/nginx-${VERSION}.tar.gz -o nginx-${VERSION}.tar.gz && \
   sha256sum nginx-${VERSION}.tar.gz | grep ${SHA256} && \
@@ -36,6 +43,7 @@ RUN \
   cd /usr/local/src/nginx-${VERSION} && \
   cp ./man/nginx.8 /usr/share/man/man8 && \
   gzip /usr/share/man/man8/nginx.8 && \
+  mkdir -p /var/cache/nginx && \
   ./configure --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
     --modules-path=/usr/lib/nginx/modules \
@@ -100,17 +108,21 @@ RUN \
   make && \
   make install && \
   ln -s /usr/lib/nginx/modules /etc/nginx/modules && \
-  apt remove -y \
-    build-essential \
+  apk del \
+    alpine-sdk \
     curl \
+    gd-dev \
+    geoip-dev \
+    gzip \
+    libgd \
     libxml2-dev \
-    libxslt1-dev \
-    libgd-dev \
-    libgeoip-dev \
-    libperl-dev && \
-  apt-get autoremove -y && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/* && \
+    libxslt-dev \
+    linux-headers \
+    perl \
+    perl-dev \
+    zlib-dev \
+  && \
+  rm -rf /var/cache/apk/* && \
   rm /usr/local/src/nginx-${VERSION}.tar.gz && \
   rm -rf /usr/local/src/nginx-${VERSION}  && \
   rm /usr/local/src/pcre-${PCRE_VERSION}.tar.gz && \
@@ -121,15 +133,7 @@ RUN \
   rm -rf /usr/local/src/openssl-${OPENSSL_VERSION}  && \
   ln -sf /dev/stdout /var/log/nginx/access.log && \
   ln -sf /dev/stderr /var/log/nginx/error.log && \
-  adduser \
-  --system \
-  --home /nonexistent \
-  --shell /bin/false \
-  --no-create-home \
-  --disabled-login \
-  --disabled-password \
-  --gecos "nginx user" \
-  --group \
+  adduser -D -g '' nginx && \
   nginx && \
   mkdir -p /var/cache/nginx/client_temp \
     /var/cache/nginx/fastcgi_temp \
