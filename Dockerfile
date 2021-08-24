@@ -3,7 +3,9 @@ FROM alpine:3.14
 ARG VERSION SHA256 PCRE_VERSION PCRE_SHA256 ZLIB_VERSION ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256
 
 RUN \
-  apk update && apk add \
+  apk update && \
+  apk upgrade && \
+  apk add \
     alpine-sdk \
     curl \
     gd-dev \
