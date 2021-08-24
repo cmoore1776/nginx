@@ -1,14 +1,6 @@
 FROM alpine:3.14
 
-ARG \
-  VERSION=1.21.1 \
-  SHA256=68ba0311342115163a0354cad34f90c05a7e8bf689dc498abf07899eda155560 \
-  PCRE_VERSION=8.45 \
-  PCRE_SHA256=4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09 \
-  ZLIB_VERSION=1.2.11 \
-  ZLIB_SHA256=c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1 \
-  OPENSSL_VERSION=1.1.1k \
-  OPENSSL_SHA256=892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5
+ARG VERSION SHA256 PCRE_VERSION PCRE_SHA256 ZLIB_VERSION ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256
 
 RUN \
   apk update && apk add \
@@ -28,16 +20,16 @@ RUN \
   mkdir -p /usr/local/src && \
   mkdir -p /usr/share/man/man8 && \
   cd /usr/local/src/ && \
-  curl https://nginx.org/download/nginx-${VERSION}.tar.gz -o nginx-${VERSION}.tar.gz && \
+  curl -L https://nginx.org/download/nginx-${VERSION}.tar.gz -o nginx-${VERSION}.tar.gz && \
   sha256sum nginx-${VERSION}.tar.gz | grep ${SHA256} && \
   tar -xf nginx-${VERSION}.tar.gz && \
-  curl https://ftp.pcre.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz -o pcre-${PCRE_VERSION}.tar.gz && \
+  curl -L https://ftp.pcre.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz -o pcre-${PCRE_VERSION}.tar.gz && \
   sha256sum pcre-${PCRE_VERSION}.tar.gz | grep ${PCRE_SHA256} && \
   tar -xf pcre-${PCRE_VERSION}.tar.gz && \
-  curl https://www.zlib.net/zlib-${ZLIB_VERSION}.tar.gz -o zlib-${ZLIB_VERSION}.tar.gz && \
+  curl -L https://www.zlib.net/zlib-${ZLIB_VERSION}.tar.gz -o zlib-${ZLIB_VERSION}.tar.gz && \
   sha256sum zlib-${ZLIB_VERSION}.tar.gz | grep ${ZLIB_SHA256} && \
   tar -xf zlib-${ZLIB_VERSION}.tar.gz && \
-  curl https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz -o openssl-${OPENSSL_VERSION}.tar.gz && \
+  curl -L https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz -o openssl-${OPENSSL_VERSION}.tar.gz && \
   sha256sum openssl-${OPENSSL_VERSION}.tar.gz | grep ${OPENSSL_SHA256} && \
   tar -xf openssl-${OPENSSL_VERSION}.tar.gz && \
   cd /usr/local/src/nginx-${VERSION} && \
