@@ -1,6 +1,6 @@
 FROM alpine:3.14
 
-ARG VERSION SHA256 PCRE_VERSION PCRE_SHA256 ZLIB_VERSION ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256
+ARG VERSION SHA256 PCRE_VERSION PCRE_SHA256 ZLIB_COMMIT ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_VERSION MORE_HEADERS_SHA256
 
 RUN \
   apk update && \
@@ -10,6 +10,7 @@ RUN \
     curl \
     gd-dev \
     geoip-dev \
+    git \
     gzip \
     libgd \
     libxml2-dev \
@@ -27,13 +28,24 @@ RUN \
   tar -xf nginx-${VERSION}.tar.gz && \
   curl -L https://ftp.pcre.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz -o pcre-${PCRE_VERSION}.tar.gz && \
   sha256sum pcre-${PCRE_VERSION}.tar.gz | grep ${PCRE_SHA256} && \
-  tar -xf pcre-${PCRE_VERSION}.tar.gz && \
-  curl -L https://www.zlib.net/zlib-${ZLIB_VERSION}.tar.gz -o zlib-${ZLIB_VERSION}.tar.gz && \
-  sha256sum zlib-${ZLIB_VERSION}.tar.gz | grep ${ZLIB_SHA256} && \
-  tar -xf zlib-${ZLIB_VERSION}.tar.gz && \
+  mkdir -p /build/pcre && \
+  tar -xf pcre-${PCRE_VERSION}.tar.gz --strip-components=1 -C /build/pcre && \
+  curl -L https://api.github.com/repos/cloudflare/zlib/tarball/${ZLIB_COMMIT} -o zlib.tar.gz && \
+  sha256sum zlib.tar.gz | grep ${ZLIB_SHA256} && \
+  mkdir -p /build/zlib && \
+  tar -xf zlib.tar.gz --strip-components=1 -C /build/zlib && \
+  cd /build/zlib && \
+  ./configure && \
+  cd /usr/local/src/ && \
   curl -L https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz -o openssl-${OPENSSL_VERSION}.tar.gz && \
   sha256sum openssl-${OPENSSL_VERSION}.tar.gz | grep ${OPENSSL_SHA256} && \
-  tar -xf openssl-${OPENSSL_VERSION}.tar.gz && \
+  mkdir -p /build/openssl && \
+  tar -xf openssl-${OPENSSL_VERSION}.tar.gz --strip-components=1 -C /build/openssl && \
+  git clone --depth 1 --single-branch --recursive https://github.com/google/ngx_brotli.git /build/ngx_brotli && \
+  curl -L https://github.com/openresty/headers-more-nginx-module/archive/refs/tags/v${MORE_HEADERS_VERSION}.tar.gz -o headers-more-nginx-module-${MORE_HEADERS_VERSION}.tar.gz && \
+  sha256sum headers-more-nginx-module-${MORE_HEADERS_VERSION}.tar.gz | grep ${MORE_HEADERS_SHA256} && \
+  mkdir -p /build/headers-more && \
+  tar -zxf headers-more-nginx-module-${MORE_HEADERS_VERSION}.tar.gz --strip-components=1 -C /build/headers-more && \
   cd /usr/local/src/nginx-${VERSION} && \
   cp ./man/nginx.8 /usr/share/man/man8 && \
   gzip /usr/share/man/man8/nginx.8 && \
@@ -93,11 +105,13 @@ RUN \
     --with-stream_geoip_module=dynamic \
     --with-stream_ssl_preread_module \
     --with-compat \
-    --with-pcre=../pcre-${PCRE_VERSION} \
+    --with-pcre=/build/pcre \
     --with-pcre-jit \
-    --with-zlib=../zlib-${ZLIB_VERSION} \
-    --with-openssl=../openssl-${OPENSSL_VERSION} \
+    --with-zlib=/build/zlib \
+    --with-openssl=/build/openssl \
     --with-openssl-opt=no-nextprotoneg \
+    --add-dynamic-module=/build/ngx_brotli \
+    --add-dynamic-module=/build/headers-more \
     --with-debug && \
   make && \
   make install && \
@@ -107,6 +121,7 @@ RUN \
     curl \
     gd-dev \
     geoip-dev \
+    git \
     gzip \
     libgd \
     libxml2-dev \
@@ -116,15 +131,11 @@ RUN \
     perl-dev \
     zlib-dev \
   && \
+  cd / && \
   rm -rf /var/cache/apk/* && \
   rm /usr/local/src/nginx-${VERSION}.tar.gz && \
   rm -rf /usr/local/src/nginx-${VERSION}  && \
-  rm /usr/local/src/pcre-${PCRE_VERSION}.tar.gz && \
-  rm -rf /usr/local/src/pcre-${PCRE_VERSION}  && \
-  rm /usr/local/src/zlib-${ZLIB_VERSION}.tar.gz && \
-  rm -rf /usr/local/src/zlib-${ZLIB_VERSION}  && \
-  rm /usr/local/src/openssl-${OPENSSL_VERSION}.tar.gz && \
-  rm -rf /usr/local/src/openssl-${OPENSSL_VERSION}  && \
+  rm -rf /build  && \
   ln -sf /dev/stdout /var/log/nginx/access.log && \
   ln -sf /dev/stderr /var/log/nginx/error.log && \
   adduser -D -g '' nginx && \
@@ -135,7 +146,11 @@ RUN \
     /var/cache/nginx/scgi_temp \
     /var/cache/nginx/uwsgi_temp && \
   chmod 700 /var/cache/nginx/* && \
-  chown nginx:root /var/cache/nginx/*
+  touch /var/run/nginx.pid && \
+  chown nginx:root /var/cache/nginx/* && \
+  chown nginx:root /var/run/nginx.pid
+
+USER nginx
 
 EXPOSE 80
 
