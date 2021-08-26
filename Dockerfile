@@ -138,19 +138,14 @@ RUN \
   rm -rf /build  && \
   ln -sf /dev/stdout /var/log/nginx/access.log && \
   ln -sf /dev/stderr /var/log/nginx/error.log && \
-  adduser -D -g '' nginx && \
-  nginx && \
+  adduser -D -g nginx nginx && \
   mkdir -p /var/cache/nginx/client_temp \
     /var/cache/nginx/fastcgi_temp \
     /var/cache/nginx/proxy_temp \
     /var/cache/nginx/scgi_temp \
     /var/cache/nginx/uwsgi_temp && \
   chmod 700 /var/cache/nginx/* && \
-  touch /var/run/nginx.pid && \
-  chown -R nginx:root /var/cache/nginx && \
-  chown nginx:root /var/run/nginx.pid
-
-USER nginx
+  chown nginx:root /var/cache/nginx/*
 
 EXPOSE 80
 
