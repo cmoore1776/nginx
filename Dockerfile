@@ -147,7 +147,7 @@ RUN \
     /var/cache/nginx/uwsgi_temp && \
   chmod 700 /var/cache/nginx/* && \
   touch /var/run/nginx.pid && \
-  chown nginx:root /var/cache/nginx/* && \
+  chown -R nginx:root /var/cache/nginx && \
   chown nginx:root /var/run/nginx.pid
 
 USER nginx
