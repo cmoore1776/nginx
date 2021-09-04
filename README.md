@@ -30,8 +30,8 @@ configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-p
 ## build
 
 ```bash
-export VERSION=1.21.1
-export SHA256=68ba0311342115163a0354cad34f90c05a7e8bf689dc498abf07899eda155560
+export VERSION=1.21.2
+export SHA256=31771c560e46d73650568e8193cb94d981081f83dd62d1ba43af1a1e0ba25185
 export PCRE_VERSION=8.45
 export PCRE_SHA256=4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09
 export ZLIB_COMMIT=959b4ea305821e753385e873ec4edfaa9a5d49b7
