@@ -26,7 +26,7 @@ RUN \
   curl -L https://nginx.org/download/nginx-${VERSION}.tar.gz -o nginx-${VERSION}.tar.gz && \
   sha256sum nginx-${VERSION}.tar.gz | grep ${SHA256} && \
   tar -xf nginx-${VERSION}.tar.gz && \
-  curl -L https://ftp.pcre.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz -o pcre-${PCRE_VERSION}.tar.gz && \
+  curl -L https://phoenixnap.dl.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.gz -o pcre-${PCRE_VERSION}.tar.gz && \
   sha256sum pcre-${PCRE_VERSION}.tar.gz | grep ${PCRE_SHA256} && \
   mkdir -p /build/pcre && \
   tar -xf pcre-${PCRE_VERSION}.tar.gz --strip-components=1 -C /build/pcre && \

@@ -20,7 +20,7 @@ Server: nginx/1.21.1
 
 ```bash
 $ docker run --rm -it shamelesscookie/nginx:latest nginx -V
-nginx version: nginx/1.21.3
+nginx version: nginx/1.21.4
 built by gcc 10.3.1 20210424 (Alpine 10.3.1_git20210424) 
 built with OpenSSL 3.0.0 7 sep 2021
 TLS SNI support enabled
@@ -30,8 +30,8 @@ configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-p
 ## build
 
 ```bash
-export VERSION=1.21.3
-export SHA256=14774aae0d151da350417efc4afda5cce5035056e71894836797e1f6e2d1175a
+export VERSION=1.21.4
+export SHA256=d1f72f474e71bcaaf465dcc7e6f7b6a4705e4b1ed95c581af31df697551f3bfe
 export PCRE_VERSION=8.45
 export PCRE_SHA256=4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09
 export ZLIB_COMMIT=959b4ea305821e753385e873ec4edfaa9a5d49b7
