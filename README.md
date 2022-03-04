@@ -30,16 +30,16 @@ configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-p
 ## build
 
 ```bash
-export VERSION=1.21.4
-export SHA256=d1f72f474e71bcaaf465dcc7e6f7b6a4705e4b1ed95c581af31df697551f3bfe
-export PCRE_VERSION=8.45
-export PCRE_SHA256=4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09
+export VERSION=1.21.6
+export SHA256=66dc7081488811e9f925719e34d1b4504c2801c81dee2920e5452a86b11405ae
+export PCRE2_VERSION=10.39
+export PCRE2_SHA256=0781bd2536ef5279b1943471fdcdbd9961a2845e1d2c9ad849b9bd98ba1a9bd4
 export ZLIB_COMMIT=959b4ea305821e753385e873ec4edfaa9a5d49b7
 export ZLIB_SHA256=9d7e1022cbd53c43cff045a5a1c52f961b908bd94d9cc7d3dab4dea71e408e8c
-export OPENSSL_VERSION=3.0.0
-export OPENSSL_SHA256=59eedfcb46c25214c9bd37ed6078297b4df01d012267fe9e9eee31f61bc70536
+export OPENSSL_VERSION=3.0.1
+export OPENSSL_SHA256=c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1
 export MORE_HEADERS_VERSION=0.33
 export MORE_HEADERS_SHA256=a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf
 
-docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE_VERSION --build-arg PCRE_SHA256 --build-arg ZLIB_COMMIT --build-arg ZLIB_SHA256 --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_VERSION --build-arg MORE_HEADERS_SHA256 -t shamelesscookie/nginx:latest -t shamelesscookie/nginx:${VERSION} -t shamelesscookie/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
+docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT --build-arg ZLIB_SHA256 --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_VERSION --build-arg MORE_HEADERS_SHA256 -t shamelesscookie/nginx:latest -t shamelesscookie/nginx:${VERSION} -t shamelesscookie/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
 ```

@@ -1,6 +1,6 @@
-FROM alpine:3.14
+FROM alpine:3.15
 
-ARG VERSION SHA256 PCRE_VERSION PCRE_SHA256 ZLIB_COMMIT ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_VERSION MORE_HEADERS_SHA256
+ARG VERSION SHA256 PCRE2_VERSION PCRE2_SHA256 ZLIB_COMMIT ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_VERSION MORE_HEADERS_SHA256
 
 RUN \
   apk update && \
@@ -26,10 +26,10 @@ RUN \
   curl -L https://nginx.org/download/nginx-${VERSION}.tar.gz -o nginx-${VERSION}.tar.gz && \
   sha256sum nginx-${VERSION}.tar.gz | grep ${SHA256} && \
   tar -xf nginx-${VERSION}.tar.gz && \
-  curl -L https://phoenixnap.dl.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.gz -o pcre-${PCRE_VERSION}.tar.gz && \
-  sha256sum pcre-${PCRE_VERSION}.tar.gz | grep ${PCRE_SHA256} && \
+  curl -L https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${PCRE2_VERSION}/pcre2-${PCRE2_VERSION}.tar.gz -o pcre2-${PCRE2_VERSION}.tar.gz && \
+  sha256sum pcre2-${PCRE2_VERSION}.tar.gz | grep ${PCRE2_SHA256} && \
   mkdir -p /build/pcre && \
-  tar -xf pcre-${PCRE_VERSION}.tar.gz --strip-components=1 -C /build/pcre && \
+  tar -xf pcre2-${PCRE2_VERSION}.tar.gz --strip-components=1 -C /build/pcre && \
   curl -L https://api.github.com/repos/cloudflare/zlib/tarball/${ZLIB_COMMIT} -o zlib.tar.gz && \
   sha256sum zlib.tar.gz | grep ${ZLIB_SHA256} && \
   mkdir -p /build/zlib && \
@@ -106,7 +106,6 @@ RUN \
     --with-stream_ssl_preread_module \
     --with-compat \
     --with-pcre=/build/pcre \
-    --with-pcre-jit \
     --with-zlib=/build/zlib \
     --with-openssl=/build/openssl \
     --with-openssl-opt=no-nextprotoneg \
