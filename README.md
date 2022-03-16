@@ -1,6 +1,6 @@
 # nginx
 
-Dockerfile for nginx, based on Alpine Linux and built from source with openssl 1.1.1 (supports TLSv1.3).
+nginx, based on Alpine Linux and built from source with openssl 3.
 
 ## Usage
 
