@@ -32,8 +32,8 @@ configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-p
 ```bash
 export VERSION=1.21.6
 export SHA256=66dc7081488811e9f925719e34d1b4504c2801c81dee2920e5452a86b11405ae
-export PCRE2_VERSION=10.39
-export PCRE2_SHA256=0781bd2536ef5279b1943471fdcdbd9961a2845e1d2c9ad849b9bd98ba1a9bd4
+export PCRE2_VERSION=10.40
+export PCRE2_SHA256=ded42661cab30ada2e72ebff9e725e745b4b16ce831993635136f2ef86177724
 export ZLIB_COMMIT=959b4ea305821e753385e873ec4edfaa9a5d49b7
 export ZLIB_SHA256=9d7e1022cbd53c43cff045a5a1c52f961b908bd94d9cc7d3dab4dea71e408e8c
 export OPENSSL_VERSION=3.0.2
