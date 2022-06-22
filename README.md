@@ -13,14 +13,14 @@ docker run --rm -it -p 80:80 shamelesscookie/nginx:latest
 ```bash
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.22.0
+Server: nginx/1.23.0
 ```
 
 ### Version info
 
 ```bash
 $ docker run --rm -it shamelesscookie/nginx:latest nginx -V
-nginx version: nginx/1.22.0
+nginx version: nginx/1.23.0
 built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
 built with OpenSSL 3.0.4 21 Jun 2022
 TLS SNI support enabled
@@ -30,16 +30,15 @@ configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-p
 ## build
 
 ```bash
-export VERSION=1.22.0
-export SHA256=b33d569a6f11a01433a57ce17e83935e953ad4dc77cdd4d40f896c88ac26eb53
+export VERSION=1.23.0
+export SHA256=820acaa35b9272be9e9e72f6defa4a5f2921824709f8aa4772c78ab31ed94cd1
 export PCRE2_VERSION=10.40
 export PCRE2_SHA256=ded42661cab30ada2e72ebff9e725e745b4b16ce831993635136f2ef86177724
 export ZLIB_COMMIT=c9479d13ee1327b0c0ba6a2bd173619f08da5c91
 export ZLIB_SHA256=68a951adc3425a30beac411b597fcdaa77a452103c724c27db11184cc55b051f
 export OPENSSL_VERSION=3.0.4
 export OPENSSL_SHA256=2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f
-export MORE_HEADERS_VERSION=0.33
-export MORE_HEADERS_SHA256=a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf
+export MORE_HEADERS_COMMIT_SHA=e536bc595d8b490dbc9cf5999ec48fca3f488632
 
-docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT --build-arg ZLIB_SHA256 --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_VERSION --build-arg MORE_HEADERS_SHA256 -t shamelesscookie/nginx:latest -t shamelesscookie/nginx:${VERSION} -t shamelesscookie/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
+docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT --build-arg ZLIB_SHA256 --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_COMMIT_SHA -t shamelesscookie/nginx:latest -t shamelesscookie/nginx:${VERSION} -t shamelesscookie/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
 ```

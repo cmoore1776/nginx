@@ -1,6 +1,6 @@
 FROM alpine:3.16
 
-ARG VERSION SHA256 PCRE2_VERSION PCRE2_SHA256 ZLIB_COMMIT ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_VERSION MORE_HEADERS_SHA256
+ARG VERSION SHA256 PCRE2_VERSION PCRE2_SHA256 ZLIB_COMMIT ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_COMMIT_SHA
 
 RUN \
   apk update && \
@@ -18,6 +18,7 @@ RUN \
     linux-headers \
     perl \
     perl-dev \
+    unzip \
     zlib-dev \
   && \
   mkdir -p /usr/local/src && \
@@ -42,10 +43,10 @@ RUN \
   mkdir -p /build/openssl && \
   tar -xf openssl-${OPENSSL_VERSION}.tar.gz --strip-components=1 -C /build/openssl && \
   git clone --depth 1 --single-branch --recursive https://github.com/google/ngx_brotli.git /build/ngx_brotli && \
-  curl -L https://github.com/openresty/headers-more-nginx-module/archive/refs/tags/v${MORE_HEADERS_VERSION}.tar.gz -o headers-more-nginx-module-${MORE_HEADERS_VERSION}.tar.gz && \
-  sha256sum headers-more-nginx-module-${MORE_HEADERS_VERSION}.tar.gz | grep ${MORE_HEADERS_SHA256} && \
+  curl -L https://github.com/openresty/headers-more-nginx-module/archive/${MORE_HEADERS_COMMIT_SHA}.zip -o headers-more-nginx-module-${MORE_HEADERS_COMMIT_SHA}.zip && \
   mkdir -p /build/headers-more && \
-  tar -zxf headers-more-nginx-module-${MORE_HEADERS_VERSION}.tar.gz --strip-components=1 -C /build/headers-more && \
+  unzip headers-more-nginx-module-${MORE_HEADERS_COMMIT_SHA}.zip -d /build/headers-more && \
+  mv /build/headers-more/*/* /build/headers-more/ && \
   cd /usr/local/src/nginx-${VERSION} && \
   cp ./man/nginx.8 /usr/share/man/man8 && \
   gzip /usr/share/man/man8/nginx.8 && \
