@@ -36,8 +36,8 @@ export PCRE2_VERSION=10.40
 export PCRE2_SHA256=ded42661cab30ada2e72ebff9e725e745b4b16ce831993635136f2ef86177724
 export ZLIB_COMMIT=c9479d13ee1327b0c0ba6a2bd173619f08da5c91
 export ZLIB_SHA256=68a951adc3425a30beac411b597fcdaa77a452103c724c27db11184cc55b051f
-export OPENSSL_VERSION=3.0.4
-export OPENSSL_SHA256=2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f
+export OPENSSL_VERSION=3.0.5
+export OPENSSL_SHA256=aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a
 export MORE_HEADERS_COMMIT_SHA=e536bc595d8b490dbc9cf5999ec48fca3f488632
 
 docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT --build-arg ZLIB_SHA256 --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_COMMIT_SHA -t shamelesscookie/nginx:latest -t shamelesscookie/nginx:${VERSION} -t shamelesscookie/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
