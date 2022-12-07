@@ -1,6 +1,6 @@
-FROM alpine:3.16
+FROM alpine:3.17
 
-ARG VERSION SHA256 PCRE2_VERSION PCRE2_SHA256 ZLIB_COMMIT ZLIB_SHA256 OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_COMMIT_SHA
+ARG VERSION SHA256 PCRE2_VERSION PCRE2_SHA256 ZLIB_COMMIT_SHA OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_COMMIT_SHA
 
 RUN \
   apk update && \
@@ -31,8 +31,7 @@ RUN \
   sha256sum pcre2-${PCRE2_VERSION}.tar.gz | grep ${PCRE2_SHA256} && \
   mkdir -p /build/pcre && \
   tar -xf pcre2-${PCRE2_VERSION}.tar.gz --strip-components=1 -C /build/pcre && \
-  curl -L https://api.github.com/repos/cloudflare/zlib/tarball/${ZLIB_COMMIT} -o zlib.tar.gz && \
-  sha256sum zlib.tar.gz | grep ${ZLIB_SHA256} && \
+  curl -L https://api.github.com/repos/cloudflare/zlib/tarball/${ZLIB_COMMIT_SHA} -o zlib.tar.gz && \
   mkdir -p /build/zlib && \
   tar -xf zlib.tar.gz --strip-components=1 -C /build/zlib && \
   cd /build/zlib && \
