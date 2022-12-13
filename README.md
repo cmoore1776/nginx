@@ -13,14 +13,14 @@ docker run --rm -it -p 80:80 shamelesscookie/nginx:latest
 ```bash
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.23.2
+Server: nginx/1.23.3
 ```
 
 ### Version info
 
 ```bash
 $ docker run --rm -it shamelesscookie/nginx:latest nginx -V
-nginx version: nginx/1.23.2
+nginx version: nginx/1.23.3
 built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r4) 
 built with OpenSSL 3.0.7 1 Nov 2022
 TLS SNI support enabled
@@ -30,10 +30,10 @@ configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-p
 ## build
 
 ```bash
-export VERSION=1.23.2
-export SHA256=a80cc272d3d72aaee70aa8b517b4862a635c0256790434dbfc4d618a999b0b46
-export PCRE2_VERSION=10.41
-export PCRE2_SHA256=d188f77c239efb0ca192ba7bed109cd307fb205f4b2ad8343c4f69c9079e0371
+export VERSION=1.23.3
+export SHA256=75cb5787dbb9fae18b14810f91cc4343f64ce4c24e27302136fb52498042ba54
+export PCRE2_VERSION=10.42
+export PCRE2_SHA256=c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f
 export ZLIB_COMMIT_SHA=885674026394870b7e7a05b7bf1ec5eb7bd8a9c0
 export OPENSSL_VERSION=3.0.7
 export OPENSSL_SHA256=83049d042a260e696f62406ac5c08bf706fd84383f945cf21bd61e9ed95c396e
