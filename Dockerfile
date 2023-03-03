@@ -1,6 +1,6 @@
 FROM alpine:3.17
 
-ARG VERSION SHA256 PCRE2_VERSION PCRE2_SHA256 ZLIB_COMMIT_SHA OPENSSL_VERSION OPENSSL_SHA256 MORE_HEADERS_COMMIT_SHA
+ARG VERSION SHA256 PCRE2_VERSION PCRE2_SHA256 ZLIB_COMMIT_SHA OPENSSL_VERSION OPENSSL_SHA256
 
 RUN \
   apk update && \
@@ -9,11 +9,14 @@ RUN \
     alpine-sdk \
     curl \
     gd-dev \
+    geoip \
     geoip-dev \
     git \
     gzip \
     libgd \
+    libxml2 \
     libxml2-dev \
+    libxslt \
     libxslt-dev \
     linux-headers \
     perl \
@@ -37,20 +40,23 @@ RUN \
   cd /build/zlib && \
   ./configure && \
   cd /usr/local/src/ && \
+  # openssl
   curl -L https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz -o openssl-${OPENSSL_VERSION}.tar.gz && \
   sha256sum openssl-${OPENSSL_VERSION}.tar.gz | grep ${OPENSSL_SHA256} && \
   mkdir -p /build/openssl && \
   tar -xf openssl-${OPENSSL_VERSION}.tar.gz --strip-components=1 -C /build/openssl && \
+  # ngx_brotli
   git clone --depth 1 --single-branch --recursive https://github.com/google/ngx_brotli.git /build/ngx_brotli && \
-  curl -L https://github.com/openresty/headers-more-nginx-module/archive/${MORE_HEADERS_COMMIT_SHA}.zip -o headers-more-nginx-module-${MORE_HEADERS_COMMIT_SHA}.zip && \
-  mkdir -p /build/headers-more && \
-  unzip headers-more-nginx-module-${MORE_HEADERS_COMMIT_SHA}.zip -d /build/headers-more && \
-  mv /build/headers-more/*/* /build/headers-more/ && \
+  # more headers
+  git clone --depth 1 --single-branch --recursive https://github.com/openresty/headers-more-nginx-module.git /build/headers-more && \
+  # fancyindex
+  git clone --depth 1 --single-branch --recursive https://github.com/aperezdc/ngx-fancyindex.git /build/ngx-fancyindex && \
   cd /usr/local/src/nginx-${VERSION} && \
   cp ./man/nginx.8 /usr/share/man/man8 && \
   gzip /usr/share/man/man8/nginx.8 && \
   mkdir -p /var/cache/nginx && \
-  ./configure --prefix=/etc/nginx \
+  ./configure \
+    --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
     --modules-path=/usr/lib/nginx/modules \
     --conf-path=/etc/nginx/nginx.conf \
@@ -111,6 +117,7 @@ RUN \
     --with-openssl-opt=no-nextprotoneg \
     --add-dynamic-module=/build/ngx_brotli \
     --add-dynamic-module=/build/headers-more \
+    --add-dynamic-module=/build/ngx-fancyindex \
     --with-debug && \
   make && \
   make install && \
@@ -122,11 +129,9 @@ RUN \
     geoip-dev \
     git \
     gzip \
-    libgd \
     libxml2-dev \
     libxslt-dev \
     linux-headers \
-    perl \
     perl-dev \
     zlib-dev \
   && \
@@ -138,13 +143,16 @@ RUN \
   ln -sf /dev/stdout /var/log/nginx/access.log && \
   ln -sf /dev/stderr /var/log/nginx/error.log && \
   adduser -D -g nginx nginx && \
-  mkdir -p /var/cache/nginx/client_temp \
+  mkdir -p \
+    /var/cache/nginx/client_temp \
     /var/cache/nginx/fastcgi_temp \
     /var/cache/nginx/proxy_temp \
     /var/cache/nginx/scgi_temp \
     /var/cache/nginx/uwsgi_temp && \
   chmod 700 /var/cache/nginx/* && \
   chown nginx:root /var/cache/nginx/*
+
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 

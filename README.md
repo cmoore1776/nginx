@@ -37,7 +37,6 @@ export PCRE2_SHA256=c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d6
 export ZLIB_COMMIT_SHA=885674026394870b7e7a05b7bf1ec5eb7bd8a9c0
 export OPENSSL_VERSION=3.0.8
 export OPENSSL_SHA256=6c13d2bf38fdf31eac3ce2a347073673f5d63263398f1f69d0df4a41253e4b3e
-export MORE_HEADERS_COMMIT_SHA=33b646d69f39604d71342ee241633975aa122b35
 
 docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT_SHA --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_COMMIT_SHA -t cmoore1776/nginx:latest -t cmoore1776/nginx:${VERSION} -t cmoore1776/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
 ```
