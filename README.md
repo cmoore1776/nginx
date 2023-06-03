@@ -38,7 +38,7 @@ The following modules are included for your convenience:
 $ docker run --rm -it cmoore1776/nginx:latest nginx -V
 nginx version: nginx/1.25.0
 built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r4) 
-built with OpenSSL 3.1.0 14 Mar 2023
+built with OpenSSL 3.1.1 30 May 2023
 TLS SNI support enabled
 configure arguments:
 --prefix=/etc/nginx
@@ -113,8 +113,8 @@ export SHA256=5ed44d45943272a4e8a5bcf4434237210f2de31b903fca5e381c1bbd7eee1e8c
 export PCRE2_VERSION=10.42
 export PCRE2_SHA256=c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f
 export ZLIB_COMMIT_SHA=4e4e4c4fbdad9dd034d8f05e2312bf845f0d4d15
-export OPENSSL_VERSION=3.1.0
-export OPENSSL_SHA256=aaa925ad9828745c4cad9d9efeb273deca820f2cdcf2c3ac7d7c1212b7c497b4
+export OPENSSL_VERSION=3.1.1
+export OPENSSL_SHA256=b3aa61334233b852b63ddb048df181177c2c659eb9d4376008118f9c08d07674
 
 docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT_SHA --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_COMMIT_SHA -t cmoore1776/nginx:latest -t cmoore1776/nginx:${VERSION} -t cmoore1776/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
 ```
