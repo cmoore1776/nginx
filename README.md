@@ -38,7 +38,7 @@ The following modules are included for your convenience:
 $ docker run --rm -it cmoore1776/nginx:latest nginx -V
 nginx version: nginx/1.25.1
 built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r10) 
-built with OpenSSL 3.1.1 30 May 2023
+built with OpenSSL 3.1.2 1 Aug 2023
 TLS SNI support enabled
 configure arguments:
 --prefix=/etc/nginx
@@ -102,7 +102,8 @@ configure arguments:
 --with-openssl-opt=no-nextprotoneg
 --add-dynamic-module=/build/ngx_brotli
 --add-dynamic-module=/build/headers-more
---add-dynamic-module=/build/ngx-fancyindex --with-debug
+--add-dynamic-module=/build/ngx-fancyindex
+--with-debug
 ```
 
 ## build
@@ -113,8 +114,8 @@ export SHA256=f09071ac46e0ea3adc0008ef0baca229fc6b4be4533baef9bbbfba7de29a8602
 export PCRE2_VERSION=10.42
 export PCRE2_SHA256=c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f
 export ZLIB_COMMIT_SHA=d20bdfcd0efbdd72cb9d857e098ceac1bad41432
-export OPENSSL_VERSION=3.1.1
-export OPENSSL_SHA256=b3aa61334233b852b63ddb048df181177c2c659eb9d4376008118f9c08d07674
+export OPENSSL_VERSION=3.1.2
+export OPENSSL_SHA256=a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539
 
 docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT_SHA --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_COMMIT_SHA -t cmoore1776/nginx:latest -t cmoore1776/nginx:${VERSION} -t cmoore1776/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
 ```
