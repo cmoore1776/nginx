@@ -7,13 +7,14 @@ nginx, running on Alpine Linux and built from source with openssl 3, and several
 Use this as a base image, and add your content to `/etc/nginx/html`, or write a custom nginx config to `/etc/nginx/conf.d/*.conf` and it will be included.
 
 ```bash
-docker run --rm -it -p 80:80 cmoore1776/nginx:latest
+docker run
+--rm -it -p 80:80 cmoore1776/nginx:latest
 ```
 
 ```bash
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.25.1
+Server: nginx/1.25.2
 ```
 
 ## Modules
@@ -35,10 +36,10 @@ The following modules are included for your convenience:
 ## Version info
 
 ```bash
-$ docker run --rm -it cmoore1776/nginx:latest nginx -V
-nginx version: nginx/1.25.1
+$ docker run --rm cmoore1776/nginx:latest nginx -V
+nginx version: nginx/1.25.2
 built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r10) 
-built with OpenSSL 3.1.2 1 Aug 2023
+built with OpenSSL 3.1.3 19 Sep 2023
 TLS SNI support enabled
 configure arguments:
 --prefix=/etc/nginx
@@ -114,8 +115,8 @@ export SHA256=05dd6d9356d66a74e61035f2a42162f8c754c97cf1ba64e7a801ba158d6c0711
 export PCRE2_VERSION=10.42
 export PCRE2_SHA256=c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f
 export ZLIB_COMMIT_SHA=d20bdfcd0efbdd72cb9d857e098ceac1bad41432
-export OPENSSL_VERSION=3.1.2
-export OPENSSL_SHA256=a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539
+export OPENSSL_VERSION=3.1.3
+export OPENSSL_SHA256=f0316a2ebd89e7f2352976445458689f80302093788c466692fb2a188b2eacf6
 
 docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT_SHA --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_COMMIT_SHA -t cmoore1776/nginx:latest -t cmoore1776/nginx:${VERSION} -t cmoore1776/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
 ```
