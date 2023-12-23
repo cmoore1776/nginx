@@ -38,7 +38,7 @@ The following modules are included for your convenience:
 ```bash
 $ docker run --rm cmoore1776/nginx:latest nginx -V
 nginx version: nginx/1.25.3
-built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r10) 
+built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
 built with OpenSSL 3.2.0 23 Nov 2023
 TLS SNI support enabled
 ```
