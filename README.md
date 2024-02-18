@@ -13,7 +13,7 @@ docker run --rm -it -p 80:80 cmoore1776/nginx:latest
 ```bash
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.25.3
+Server: nginx/1.25.4
 ```
 
 ## Modules
@@ -47,9 +47,9 @@ TLS SNI support enabled
 ```bash
 export VERSION=1.25.4
 export SHA256=760729901acbaa517996e681ee6ea259032985e37c2768beef80df3a877deed9
-export PCRE2_VERSION=10.42
-export PCRE2_SHA256=c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f
-export ZLIB_COMMIT_SHA=d20bdfcd0efbdd72cb9d857e098ceac1bad41432
+export PCRE2_VERSION=10.43
+export PCRE2_SHA256=889d16be5abb8d05400b33c25e151638b8d4bac0e2d9c76e9d6923118ae8a34e
+export ZLIB_COMMIT_SHA=7aa510344e06fecd6fe09195ac22e9a424ceb660
 export OPENSSL_VERSION=3.2.1
 export OPENSSL_SHA256=83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39
 
