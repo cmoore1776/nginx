@@ -36,7 +36,7 @@ The following modules are included for your convenience:
 
 ```bash
 $ docker run --rm cmoore1776/nginx:latest nginx -V
-nginx version: nginx/1.25.4
+nginx version: nginx/1.25.5
 built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
 built with OpenSSL 3.3.0 9 Apr 2024
 TLS SNI support enabled
@@ -45,8 +45,8 @@ TLS SNI support enabled
 ## build
 
 ```bash
-export VERSION=1.25.4
-export SHA256=760729901acbaa517996e681ee6ea259032985e37c2768beef80df3a877deed9
+export VERSION=1.25.5
+export SHA256=2fe2294f8af4144e7e842eaea884182a84ee7970e11046ba98194400902bbec0
 export PCRE2_VERSION=10.43
 export PCRE2_SHA256=889d16be5abb8d05400b33c25e151638b8d4bac0e2d9c76e9d6923118ae8a34e
 export ZLIB_COMMIT_SHA=7aa510344e06fecd6fe09195ac22e9a424ceb660
