@@ -22,12 +22,13 @@ The following modules are included for your convenience:
 
 - ngx_http_brotli_filter_module
 - ngx_http_brotli_static_module
+- ngx_http_fancyindex_module
 - ngx_http_geoip_module
 - ngx_http_headers_more_filter_module
 - ngx_http_image_filter_module
+- ngx_http_js_module
 - ngx_http_perl_module
 - ngx_http_xslt_filter_module
-- ngx_http_fancyindex_module
 - ngx_mail_module
 - ngx_stream_module
 - ngx_stream_geoip_module
