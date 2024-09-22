@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM alpine:3.20
 
 # https://nginx.org/en/download.html
 # https://github.com/PCRE2Project/pcre2/releases
@@ -46,7 +46,7 @@ RUN : \
   && ./configure \
   && cd /usr/local/src/ \
   # openssl
-  && curl -L https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz -o openssl-${OPENSSL_VERSION}.tar.gz \
+  && curl -L https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz -o openssl-${OPENSSL_VERSION}.tar.gz \
   && sha256sum openssl-${OPENSSL_VERSION}.tar.gz | grep ${OPENSSL_SHA256} \
   && mkdir -p /build/openssl \
   && tar -xf openssl-${OPENSSL_VERSION}.tar.gz --strip-components=1 -C /build/openssl \
