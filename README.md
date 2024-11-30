@@ -13,7 +13,7 @@ docker run --rm -it -p 80:80 cmoore1776/nginx:latest
 ```bash
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.27.1
+Server: nginx/1.27.3
 ```
 
 ## Modules
@@ -37,7 +37,7 @@ The following modules are included for your convenience:
 
 ```bash
 $ docker run --rm cmoore1776/nginx:latest nginx -V
-nginx version: nginx/1.27.2
+nginx version: nginx/1.27.3
 built by gcc 13.2.1 20240309 (Alpine 13.2.1_git20240309) 
 built with OpenSSL 3.4.0 22 Oct 2024
 TLS SNI support enabled
@@ -46,8 +46,8 @@ TLS SNI support enabled
 ## build
 
 ```bash
-export VERSION=1.27.2
-export SHA256=a91ecfc3a0b3a2c1413afca627bd886d76e0414b81cad0fb7872a9655a1b25fa
+export VERSION=1.27.3
+export SHA256=ba23a9568f442036b61cd0e29bd66a47b90634efa91e0b2cf2d719057a9b7903
 export PCRE2_VERSION=10.43
 export PCRE2_SHA256=889d16be5abb8d05400b33c25e151638b8d4bac0e2d9c76e9d6923118ae8a34e
 export ZLIB_COMMIT_SHA=7aa510344e06fecd6fe09195ac22e9a424ceb660
