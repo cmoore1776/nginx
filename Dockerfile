@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.21
 
 # https://nginx.org/en/download.html
 # https://github.com/PCRE2Project/pcre2/releases
