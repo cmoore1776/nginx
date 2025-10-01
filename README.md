@@ -13,7 +13,7 @@ docker run --rm -it -p 80:80 cmoore1776/nginx:latest
 ```bash
 $ curl -sSL -D - http://localhost -o /dev/null | head -n 2
 HTTP/1.1 200 OK
-Server: nginx/1.27.5
+Server: nginx/1.29.1
 ```
 
 ## Modules
@@ -37,22 +37,22 @@ The following modules are included for your convenience:
 
 ```bash
 $ docker run --rm cmoore1776/nginx:latest nginx -V
-nginx version: nginx/1.27.5
+nginx version: nginx/1.29.1
 built by gcc 14.2.0 (Alpine 14.2.0) 
-built with OpenSSL 3.4.1 11 Feb 2025
+built with OpenSSL 3.5.4 30 Sep 2025
 TLS SNI support enabled
 ```
 
 ## build
 
 ```bash
-export VERSION=1.27.5
-export SHA256=e96acebb9c2a6db8a000c3dd1b32ecba1b810f0cd586232d4d921e376674dd0e
-export PCRE2_VERSION=10.45
-export PCRE2_SHA256=0e138387df7835d7403b8351e2226c1377da804e0737db0e071b48f07c9d12ee
+export VERSION=1.29.1
+export SHA256=c589f7e7ed801ddbd904afbf3de26ae24eb0cce27c7717a2e94df7fb12d6ad27
+export PCRE2_VERSION=10.46
+export PCRE2_SHA256=8d28d7f2c3b970c3a4bf3776bcbb5adfc923183ce74bc8df1ebaad8c1985bd07
 export ZLIB_COMMIT_SHA=1252e2565573fe150897c9d8b44d3453396575ff
-export OPENSSL_VERSION=3.4.1
-export OPENSSL_SHA256=002a2d6b30b58bf4bea46c43bdd96365aaf8daa6c428782aa4feee06da197df3
+export OPENSSL_VERSION=3.5.4
+export OPENSSL_SHA256=967311f84955316969bdb1d8d4b983718ef42338639c621ec4c34fddef355e99
 
 docker buildx build --no-cache --platform linux/amd64,linux/arm64 --build-arg VERSION --build-arg SHA256 --build-arg PCRE2_VERSION --build-arg PCRE2_SHA256 --build-arg ZLIB_COMMIT_SHA --build-arg OPENSSL_VERSION --build-arg OPENSSL_SHA256 --build-arg MORE_HEADERS_COMMIT_SHA -t cmoore1776/nginx:latest -t cmoore1776/nginx:${VERSION} -t cmoore1776/nginx:${VERSION}-openssl-${OPENSSL_VERSION} --pull --push .
 ```
